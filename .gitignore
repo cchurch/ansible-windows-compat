@@ -3,4 +3,5 @@ dist/
 *.egg-info/
 .eggs/
 *.pyc
+installed_files.txt
 

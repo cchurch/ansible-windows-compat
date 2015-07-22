@@ -7,13 +7,19 @@ from distutils import sysconfig
 
 # Setuptools
 from setuptools import setup
+import setuptools.command.egg_info
+
+# Monkeypatch writing top level names to enable pip to uninstall .pth file.
+def write_toplevel_names(cmd, basename, filename):
+    pkgs = ['ansible_windows_compat', 'ansible_windows_compat.pth']
+    cmd.write_file("top-level names", filename, '\n'.join(sorted(pkgs)) + '\n')
+setuptools.command.egg_info.write_toplevel_names = write_toplevel_names
 
 extra = {}
 if sys.version_info >= (3,):
     extra['use_2to3'] = True
 
 relative_site_packages = os.path.relpath(sysconfig.get_python_lib(), sys.prefix)
-relative_site_packages = relative_site_packages.replace('\\', '/')
 
 setup(
     name='ansible-windows-compat',
@@ -53,6 +59,10 @@ setup(
     options={
         'egg_info': {
             'tag_build': '.dev',
+        },
+        'install': {
+            'single_version_externally_managed': True,
+            'record': 'installed_files.txt',
         },
         'aliases': {
             'dev_build': 'egg_info sdist',
