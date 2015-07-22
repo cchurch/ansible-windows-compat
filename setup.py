@@ -23,7 +23,7 @@ relative_site_packages = os.path.relpath(sysconfig.get_python_lib(), sys.prefix)
 
 setup(
     name='ansible-windows-compat',
-    version='0.1.0',
+    version='0.1.1',
     author='Chris Church',
     author_email='chris@ninemoreminutes.com',
     description='Compatibility library to run Ansible Python modules on a '
