@@ -13,6 +13,7 @@ if sys.version_info >= (3,):
     extra['use_2to3'] = True
 
 relative_site_packages = os.path.relpath(sysconfig.get_python_lib(), sys.prefix)
+relative_site_packages = relative_site_packages.replace('\\', '/')
 
 setup(
     name='ansible-windows-compat',
